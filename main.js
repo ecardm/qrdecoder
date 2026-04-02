@@ -1,6 +1,7 @@
 import jsQR from "npm:jsqr";
 import jpeg from "npm:jpeg-js";
 import { PNG } from "npm:pngjs";
+import { Buffer } from "node:buffer";
 
 Deno.serve(async (req) => {
   try {
@@ -13,7 +14,8 @@ Deno.serve(async (req) => {
 
     const res = await fetch(imageUrl);
     const contentType = res.headers.get("content-type") || "";
-    const buffer = new Uint8Array(await res.arrayBuffer());
+
+    const buffer = Buffer.from(await res.arrayBuffer());
 
     let imageData, width, height;
 
